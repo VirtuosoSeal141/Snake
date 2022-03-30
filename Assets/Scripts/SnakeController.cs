@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SnakeController : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class SnakeController : MonoBehaviour
     public GameObject curSpeed;
     public GameObject curUnspeed;
     public GameObject curDel;
+
+    public Text Schet;
     private void Start()
     {
         RandomPos();
@@ -44,6 +47,8 @@ public class SnakeController : MonoBehaviour
 
         if (isDownLeft) _transform.Rotate(0, -1, 0);
         if (isDownRight) _transform.Rotate(0, 1, 0);
+
+        Schet.text = "Ñ÷¸ò:" + (Tails.Count-4).ToString();
     }
 
     private void RandomPos()
@@ -134,9 +139,6 @@ public class SnakeController : MonoBehaviour
                 Tails.Remove(Tails[Tails.Count - 1]);
             }
 
-
-            RandomPos();
-            curDel = GameObject.Instantiate(FoodDel, posDel, Quaternion.identity);
         }
     }
 }
