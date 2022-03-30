@@ -106,29 +106,34 @@ public class SnakeController : MonoBehaviour
 
             RandomPos();
             curSpeed = GameObject.Instantiate(FoodSpeed, posSpeed, Quaternion.identity);
+            curDel = GameObject.Instantiate(FoodDel, posDel, Quaternion.identity);
         }
 
         if (collision.gameObject.tag == "Unspeed")
         {
             Destroy(collision.gameObject);
 
-            Speed -= 0.002f;
+            if (Speed > 0.001f) Speed -= 0.002f;
+            
 
             var bone = Instantiate(BonePrefab);
             Tails.Add(bone.transform);
 
             RandomPos();
             curUnspeed = GameObject.Instantiate(FoodUnspeed, posUnspeed, Quaternion.identity);
+            curDel = GameObject.Instantiate(FoodDel, posDel, Quaternion.identity);
         }
 
         if (collision.gameObject.tag == "Del")
         {
             Destroy(collision.gameObject);
 
-            Speed -= 0.002f;
+            if (Tails.Count > 4)
+            {
+                Destroy(Tails[Tails.Count - 1].gameObject);
+                Tails.Remove(Tails[Tails.Count - 1]);
+            }
 
-            var bone = Instantiate(BonePrefab);
-            Tails.Add(bone.transform);
 
             RandomPos();
             curDel = GameObject.Instantiate(FoodDel, posDel, Quaternion.identity);
